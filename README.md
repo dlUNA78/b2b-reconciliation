@@ -46,3 +46,58 @@ Para ejecutar este proyecto en tu entorno local, asegúrate de tener instalado:
 Ubicado en la raíz del proyecto, ejecuta el siguiente comando para levantar el contenedor de PostgreSQL en segundo plano:
 ```bash
 docker-compose up -d
+
+2. Ejecutar la Aplicación Spring Boot
+Puedes ejecutar la aplicación directamente desde tu IDE (IntelliJ IDEA / Eclipse) o utilizando Maven en la terminal:
+
+Bash
+mvn spring-boot:run
+Nota: La aplicación se iniciará en http://localhost:8080 y las tablas se crearán automáticamente gracias a la configuración ddl-auto=update de Hibernate.
+
+🔌 Documentación de Endpoints
+1. Autenticación (Público)
+Obtiene el Token JWT necesario para operar el sistema.
+
+Endpoint: POST /auth/login
+
+Parámetros URL: username (ej. admin), password (ej. admin)
+
+Respuesta Exitosa (200 OK): Retorna el JWT en texto plano.
+
+2. Consultar Catálogo de Productos (Protegido)
+Obtiene la lista de productos y su stock actual en el sistema.
+
+Endpoint: GET /api/products
+
+Headers requeridos: Authorization: Bearer <TU_TOKEN>
+
+Respuesta Exitosa (200 OK): Array JSON de DTOs de productos.
+
+3. Conciliación de Inventario (Protegido)
+Audita un producto específico informando el conteo físico real.
+
+Endpoint: POST /api/products/{id}/reconcile?physicalStock={cantidad}
+
+Headers requeridos: Authorization: Bearer <TU_TOKEN>
+
+Respuesta Exitosa (200 OK): Mensaje de estado de la auditoría:
+
+"🚨 FALTANTE DETECTADO..."
+
+"⚠️ SOBRANTE DETECTADO..."
+
+"✅ INVENTARIO CUADRADO"
+
+🧪 Pruebas Unitarias y Calidad de Código
+El proyecto cuenta con una suite de pruebas automatizadas que validan la lógica de conciliación sin necesidad de levantar el contexto completo de Spring ni la base de datos real.
+
+Para ejecutar la batería de pruebas:
+
+Bash
+mvn test
+👨‍💻 Autor
+[Daniel Luna] Desarrollador Backend Java especializado en arquitecturas escalables, seguridad de APIs e integración de sistemas.
+
+🔗 LinkedIn: [www.linkedin.com/in/daniel-luna-a2b848271]
+
+💼 Portafolio: [https://github.com/dlUNA78]
