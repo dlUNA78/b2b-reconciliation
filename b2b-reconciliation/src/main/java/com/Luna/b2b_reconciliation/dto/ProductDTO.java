@@ -2,7 +2,7 @@ package com.Luna.b2b_reconciliation.dto;
 
 public class ProductDTO {
 
-    private Long id; // Lo usaremos para devolver el ID generado
+    private Long id;
     private String name;
     private String sku;
     private Double price;

@@ -18,18 +18,18 @@ public class JwtUtil {
 
     public String generateToken(String username) {
         return Jwts.builder()
-                .subject(username)                          // antes: .setSubject()
-                .issuedAt(new Date())                       // antes: .setIssuedAt()
-                .expiration(new Date(System.currentTimeMillis() + 86400000))  // antes: .setExpiration()
-                .signWith(getKey())                         // antes: .signWith(Algorithm, secret)
+                .subject(username)
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + 86400000))
+                .signWith(getKey())
                 .compact();
     }
 
     public String extractUsername(String token) {
         return Jwts.parser()
-                .verifyWith(getKey())                       // antes: .setSigningKey()
+                .verifyWith(getKey())
                 .build()
-                .parseSignedClaims(token)                   // antes: .parseClaimsJws()
+                .parseSignedClaims(token)
                 .getPayload()
                 .getSubject();
     }
