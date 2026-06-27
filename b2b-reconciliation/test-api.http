@@ -1,0 +1,17 @@
+### 1. Login
+POST http://localhost:8080/auth/login?username=admin&password=admin
+
+> {%
+    client.test("Login exitoso", function() {
+        client.assert(response.status === 200, "Status debe ser 200");
+    });
+    client.global.set("my_token", response.body);  // ← body directo, no response.body.token
+%}
+
+### 2. Obtener productos
+GET http://localhost:8080/api/products
+Authorization: Bearer {{my_token}}
+
+### 3. Reconciliar
+POST http://localhost:8080/api/products/2/reconcile?physicalStock=40
+Authorization: Bearer {{my_token}}

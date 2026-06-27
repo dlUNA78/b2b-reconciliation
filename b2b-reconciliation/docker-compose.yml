@@ -1,0 +1,11 @@
+services:
+  db:
+    image: postgres:15
+    container_name: b2b_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 586226
+      POSTGRES_DB: b2b_reconciliation
+    ports:
+      - "5433:5432"
